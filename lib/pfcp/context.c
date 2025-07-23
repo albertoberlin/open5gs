@@ -1430,9 +1430,9 @@ void ogs_pfcp_object_teid_hash_set(
                     pdr->dnn, pdr->src_if);
             if (resource) {
                 if (! (resource->info.v4 && pdr->f_teid.ipv4) || !(resource->info.v6 && pdr->f_teid.ipv6)) {
-                    ogs_error("PDR-ID[%d] PDR-DNN [%s] IPv4[%d] IPv6[%d] F-TEID LEN[%d] TEID[0x%x] "
+                    ogs_error("PDR-ID[%d] PDR-DNN [%s] PDR-SRC-IFCE [%d] IPv4[%d] IPv6[%d] F-TEID LEN[%d] TEID[0x%x] "
                             "does not match GTPU Resource Info IP Type",
-                            pdr->id, pdr->dnn, pdr->f_teid.ipv4, pdr->f_teid.ipv6, pdr->f_teid_len, pdr->f_teid.teid);
+                            pdr->id, pdr->dnn, pdr->src_if, pdr->f_teid.ipv4, pdr->f_teid.ipv6, pdr->f_teid_len, pdr->f_teid.teid);
                 }
                 ogs_assert(
                     (resource->info.v4 && pdr->f_teid.ipv4) ||
