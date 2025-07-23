@@ -138,6 +138,7 @@ void upf_pfcp_state_will_associate(ogs_fsm_t *s, upf_event_t *e)
         default:
             ogs_warn("cannot handle PFCP message type[%d]",
                     message->h.type);
+            ogs_pfcp_send_error_message(xact, message->h.seid, message->h.type, OGS_PFCP_CAUSE_NO_ESTABLISHED_PFCP_ASSOCIATION);
             break;
         }
         break;
