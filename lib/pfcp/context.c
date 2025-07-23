@@ -1172,6 +1172,8 @@ ogs_gtpu_resource_t *ogs_pfcp_find_gtpu_resource(ogs_list_t *list,
     ogs_assert(list);
 
     ogs_list_for_each(list, resource) {
+        ogs_debug("Looking into a new resource with IPv4 address %u and PDR-DNN [%s] and SRC-IFCE [%d]",
+                  resource->info.addr, resource->info.network_instance, resource->info.source_interface);
         bool match = true;
 
         if (resource->info.assoni &&
