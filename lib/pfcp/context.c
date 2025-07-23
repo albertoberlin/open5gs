@@ -1179,6 +1179,8 @@ ogs_gtpu_resource_t *ogs_pfcp_find_gtpu_resource(ogs_list_t *list,
             dnn && strlen(dnn) &&
             ogs_strcasecmp(dnn, resource->info.network_instance) != 0) {
             match = false;
+            ogs_debug("Looking for resource with IPv4 address %"PRIu32" with PDR-DNN [%s] does not match GTPU Resource Info network instance [%s]",
+                      resource->info.addr, dnn, resource->info.network_instance);
         }
 
         if (resource->info.assosi &&
@@ -1186,6 +1188,8 @@ ogs_gtpu_resource_t *ogs_pfcp_find_gtpu_resource(ogs_list_t *list,
             source_interface <= OGS_PFCP_INTERFACE_LI_FUNCTION &&
             source_interface != resource->info.source_interface) {
             match = false;
+            ogs_debug("Looking for resource with IPv4 address %"PRIu32" with PDR-DNN [%s] and PDR-SRC-IFCE [%d] does not match Resource Info source interface [%d]",
+                      resource->info.addr, dnn, source_interface, resource->info.source_interface);
         }
 
         if (match == true) return resource;
