@@ -1194,7 +1194,11 @@ ogs_gtpu_resource_t *ogs_pfcp_find_gtpu_resource(ogs_list_t *list,
                       resource->info.addr, dnn, source_interface, resource->info.source_interface);
         }
 
-        if (match == true) return resource;
+        if (match == true) {
+            ogs_debug("Found a match with flags v4[%d] v6[%d] IPv4 address %u and Network Instance [%s] and SRC-IFCE [%d]",
+                      resource->info.v4, resource->info.v6, resource->info.addr, resource->info.network_instance, resource->info.source_interface);
+            return resource;
+        }
     }
 
     return NULL;
@@ -1437,8 +1441,9 @@ void ogs_pfcp_object_teid_hash_set(
             if (resource) {
                 if (! (resource->info.v4 && pdr->f_teid.ipv4) || !(resource->info.v6 && pdr->f_teid.ipv6)) {
                     ogs_error("PDR-ID[%d] PDR-DNN [%s] PDR-SRC-IFCE [%d] IPv4[%d] IPv6[%d] F-TEID LEN[%d] TEID[0x%x] "
-                            "does not match GTPU Resource Info IP Type",
-                            pdr->id, pdr->dnn, pdr->src_if, pdr->f_teid.ipv4, pdr->f_teid.ipv6, pdr->f_teid_len, pdr->f_teid.teid);
+                            "does not match GTPU Resource Info IP Type v4[%d] v6[%d]",
+                            pdr->id, pdr->dnn, pdr->src_if, pdr->f_teid.ipv4, pdr->f_teid.ipv6, pdr->f_teid_len, pdr->f_teid.teid,
+                            resource->info.v4, resource->info.v6);
                 }
                 ogs_assert(
                     (resource->info.v4 && pdr->f_teid.ipv4) ||
